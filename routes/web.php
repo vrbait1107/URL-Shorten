@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ShortUrlController as AdminShortUrlController;
 use App\Http\Controllers\UrlController;
 use Illuminate\Support\Facades\Route;
 use AshAllenDesign\ShortURL\Controllers\ShortURLController;
@@ -20,9 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/dashboard', [AdminShortUrlController::class, 'index'])->name('dashboard');
+    Route::delete('/dashboard/{shortUrl}', [AdminShortUrlController::class, 'destroy'])->name('dashboard.destroy');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
