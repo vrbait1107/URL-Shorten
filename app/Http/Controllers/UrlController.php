@@ -15,8 +15,6 @@ class UrlController extends Controller
      */
     public function __invoke(Request $request)
     {
-
-
         $request->validate([
             'url' => ['required', 'url'],
         ]);
@@ -32,8 +30,12 @@ class UrlController extends Controller
                 'status' => "URL Shortened Successfully. {$convertedURL}",
                 'class' => 'success'
             ]);
+            
         } catch (\Exception $ex) {
-            return back()->with(['status' => "Something Went Wrong", 'class' => 'danger']);
+            return back()->with([
+                'status' => "Something Went Wrong",
+                'class' => 'danger'
+            ]);
         }
     }
 }
