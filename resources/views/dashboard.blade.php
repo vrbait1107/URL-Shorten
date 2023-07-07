@@ -52,9 +52,23 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                                     </form>
+
                                     <a href="{{ route('dashboard.edit', $value->id ) }}" >
                                         <button type="submit" class="btn btn-sm btn-outline-danger">Edit</button>
                                     </a>
+
+                                    <a href="{{ $value->default_short_url  }}" target="_blank" >
+                                        <button type="button" class="btn btn-sm btn-outline-danger">Visit</button>
+                                    </a>
+
+                                    <form
+                                        action="{{ route('dashboard.disable', $value->id ) }}"
+                                        method="post" onsubmit="return confirm('Are you sure..?')">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Disable</button>
+                                    </form>
+
                                 </th>
                             </tr>
                         @empty

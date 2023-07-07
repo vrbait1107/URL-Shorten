@@ -66,6 +66,30 @@ class ShortUrlController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     */
+    public function disable(Request $request, ShortUrl $shortUrl)
+    {
+        $isDisbaled = ShortUrl::where("id", $shortUrl->id)->update([
+            'deactivated_at' => now(),
+        ]);
+
+        if (!$isDisbaled) {
+            return back()->with(
+                [
+                    'status' => "Sorry, Something Went Wrong",
+                    'class' => 'danger'
+                ]
+            );
+        }
+
+        return to_route('dashboard')->with([
+            'status' => "Data Disabled Successfully.",
+            'class' => 'success'
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(ShortUrl $shortUrl)

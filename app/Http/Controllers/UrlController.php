@@ -23,7 +23,12 @@ class UrlController extends Controller
 
             $builder = new Builder();
             $requestURL = $request->url;
-            $convertToShortURL = $builder->destinationUrl($requestURL)->make();
+
+            $convertToShortURL = $builder->destinationUrl($requestURL)
+            ->deactivateAt(now()
+            ->addDay())
+            ->make();
+
             $convertedURL = $convertToShortURL->default_short_url;
 
             return back()->with([

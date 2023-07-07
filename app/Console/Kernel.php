@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\ExpireShortUrlNotificationJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,6 +14,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
+        /* Run Expire Short Url Email Notification Job Every Five Minute */
+         $schedule->job(ExpireShortUrlNotificationJob::class)->everyFiveMinutes();
     }
 
     /**
