@@ -13,8 +13,17 @@
 
     <section class="container">
         <div class="row">
+
+            <div class="mt-3 text-right">
+                <a href="{{ route('dashboard')}}" class="mb-5">
+                    <button class="btn btn-primary">Dashboard</button>
+                </a>
+            </div>
+           
             <div class="col-md-8 offset-md-2 mt-5">
+
                 <h3>URL Shortner</h3>
+                
                 <hr>
     
                 <x-session-status class="my-2 alert-{{ session('class') }}" :status="session('status')" />
