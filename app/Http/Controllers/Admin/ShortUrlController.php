@@ -27,27 +27,12 @@ class ShortUrlController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ShortUrl $shortUrl)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ShortUrl $shortUrl)
+    public function edit(ShortUrl $shortUrl): View
     {
-        //
+        $data = ShortUrl::find($shortUrl->id, ['id', 'destination_url', 'default_short_url']);
+        return view('edit', compact('data'));
     }
 
     /**
@@ -55,7 +40,29 @@ class ShortUrlController extends Controller
      */
     public function update(Request $request, ShortUrl $shortUrl)
     {
-        //
+        $request->validate([
+            'destination_url' => ['url', 'required'],
+            'default_short_url' => ['url', 'required']
+        ]);
+
+        $isUpdated = ShortUrl::where("id", $shortUrl->id)->update([
+            'destination_url' => $request->destination_url,
+            'default_short_url' => $request->default_short_url
+        ]);
+
+        if (!$isUpdated) {
+            return back()->with(
+                [
+                    'status' => "Sorry, Something Went Wrong",
+                    'class' => 'danger'
+                ]
+            );
+        }
+
+        return to_route('dashboard')->with([
+            'status' => "Data Updated Successfully.",
+            'class' => 'success'
+        ]);
     }
 
     /**

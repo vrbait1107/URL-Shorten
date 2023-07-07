@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/dashboard', [AdminShortUrlController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/{shortUrl}', [AdminShortUrlController::class, 'edit'])->name('dashboard.edit');
+    Route::put('/dashboard/{shortUrl}', [AdminShortUrlController::class, 'update'])->name('dashboard.update');
     Route::delete('/dashboard/{shortUrl}', [AdminShortUrlController::class, 'destroy'])->name('dashboard.destroy');
 });
 

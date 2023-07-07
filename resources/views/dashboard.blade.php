@@ -52,6 +52,9 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                                     </form>
+                                    <a href="{{ route('dashboard.edit', $value->id ) }}" >
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Edit</button>
+                                    </a>
                                 </th>
                             </tr>
                         @empty
